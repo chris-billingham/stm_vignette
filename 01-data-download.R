@@ -1,6 +1,7 @@
 library(tidyverse)
 library(jsonlite)
 library(lubridate)
+library(caret)
 
 # download the amazon video games review file from here
 if(!file.exists("data/data.gz")) {
@@ -14,3 +15,6 @@ data <- file("data/data.gz") %>%
   dplyr::mutate(yes_help = purrr::map_int(helpful, 1), all_help = purrr::map_int(helpful, 2)) %>%
   dplyr::select(-helpful) %>%
   dplyr::mutate(reviewTime =  lubridate::mdy(reviewTime))
+
+# there's a piece in here to turn yday reviewTime into a circular pair
+# of functions as I think time of the year has some bearing
